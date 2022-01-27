@@ -1,0 +1,18 @@
+{
+  "name": "medicare",
+  "version": "1.0.0",
+  "description": "it provide single point solution to patients and users",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon backend/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.8"
+  }
+}
