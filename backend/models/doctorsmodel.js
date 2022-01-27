@@ -79,16 +79,6 @@ doctorSchema.pre('save', async function (next) {
     next();
 });
 
-// userSchema.methods.dothisfor = async function(){
-//     try{
-//         const lb = await bcrypt.hash("asdfghjk",12);
-//         console.log(`encrypted string${lb}`);
-//     }catch(err){
-//         return err;
-//     }
-
-// }
-
 doctorSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
         return await bcrypt.compare(givenpassword, password);

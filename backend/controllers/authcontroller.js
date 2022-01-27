@@ -19,10 +19,7 @@ exports.protect = async (req, res, next) => {
         }
 
         // 2) Verification token
-        //const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-       // console.log(token);
         let decode = await jwt.verify(token, process.env.JWT_SECRET);
-       // console.log(decode);
         const user = await docmodel.findById(decode.id);
         if (!user) {
             next(new errorset(400, 'Please login again'));
@@ -32,10 +29,7 @@ exports.protect = async (req, res, next) => {
             
             next(new errorset(400, 'Please login again'));
         }
-
-
-
-
+        req.body.id = decode.id;
     } catch (err) {
         next(new errorset(400, 'Please login again'));
     }
