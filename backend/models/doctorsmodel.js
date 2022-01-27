@@ -27,6 +27,9 @@ const doctorSchema = new mongoose.Schema({
             }
         }
     },
+    passwordsetat: {
+        type: Date
+    },
     pincode: {
         type: Number,
         required: [true, 'Please provide pin code'],
@@ -52,16 +55,27 @@ const doctorSchema = new mongoose.Schema({
     address: {
         type: String,
         required: [true, 'Please provide your address'],
+    },
+    specialization:{
+        type: String,
+        required:[true,'Please give specialization to be displayed']
     }
-}, {
+}, 
+{
     toJSON: { Virtuals: true },
     toObject: { Virtuals: true }
 });
 
 doctorSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
     this.password = await bcrypt.hash(this.password, 12);
     console.log(this.password);
     this.configPassword = null;
+    const time = Date.now();
+    this.passwordsetat = time - 1000;
+    console.log(`${time} ${this.passwordsetat}`);
     next();
 });
 
@@ -72,15 +86,27 @@ doctorSchema.pre('save', async function (next) {
 //     }catch(err){
 //         return err;
 //     }
-    
+
 // }
 
 doctorSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
-        return await bcrypt.compare(givenpassword,password);
+        return await bcrypt.compare(givenpassword, password);
     } catch (err) {
         return err;
     }
+}
+
+doctorSchema.methods.tokensetafterpasswordset = function (val) {
+
+    let changedTimestamp;
+    if (this.passwordsetat) {
+        changedTimestamp = parseInt(
+            this.passwordsetat.getTime() / 1000,
+            10
+        );
+    }
+    return changedTimestamp < val;
 }
 
 const Doctor = mongoose.model('Doctor', doctorSchema);

@@ -1,16 +1,32 @@
 const docmodel = require('./../models/doctorsmodel');
+const errorset = require('./../utils/error');
 
-
-exports.getdoctors = async (req, res) => {
-    console.log(req.headers.Authorizatio);
-    const doc = await docmodel.find({});
-    res.status(200).json({
-        status: "sucess",
-        data: doc
-    })
+exports.getdoctors = async (req, res,next) => {
+    try {
+        const doc = await docmodel.find({});
+        res.status(200).json({
+            status: "sucess",
+            data: doc
+        })
+    } catch (err) {
+        next( new errorset(401,'cannot find data'));
+    }
 }
 
-exports.postdoctors = async (req, res) => {
+exports.getdoctorsbyid = async (req, res,next) => {
+    try {
+        const doc = await docmodel.findById(req.params.id);
+        res.status(200).json({
+            status: "sucess",
+            data: doc
+        })
+    } catch (err) {
+        next( new errorset(401,'invalid id'));
+    }
+
+}
+
+exports.postdoctors = async (req, res, next) => {
     try {
         const doc = await docmodel.create(req.body);
         res.status(200).json({
@@ -18,27 +34,21 @@ exports.postdoctors = async (req, res) => {
             doc
         })
     } catch (err) {
-        res.status(401).json({
-            status: "failed",
-            err: err.message
-        })
+        next( new errorset(401,err.message));
     }
 }
 
-exports.update = async (req, res) => {
+exports.update = async (req, res,next) => {
     try {
-        const doc = await docmodel.findByIdAndUpdate(req.params.id,req.body,{
+        const doc = await docmodel.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
-            runValidators:true
+            runValidators: true
         });
         res.status(200).json({
-            status:"sucess",
+            status: "sucess",
             doc
         });
     } catch (err) {
-        res.status(401).json({
-            status: "failed",
-            err: err.message
-        })
+        next( new errorset(401,err.message));
     }
 }
