@@ -94,7 +94,7 @@ patientSchema.methods.checkpassword = async function (password, givenpassword) {
 patientSchema.methods.tokensetafterpasswordset = function (val) {
 
     let changedTimestamp;
-    
+    console.log(this.passwordsetat);
     if (this.passwordsetat) {
         changedTimestamp = parseInt(
             this.passwordsetat.getTime() / 1000,

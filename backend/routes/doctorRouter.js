@@ -25,13 +25,14 @@ router.use('/appointments', appointmentRouter);
 router
     .route('/:id')
     .get(doccontroller.getdoctorsbyid)
-    .patch(doccontroller.update)
+    
 
 
 router
     .route('/')
     .get(doccontroller.getdoctors)
     .post(doccontroller.postdoctors)
+    .patch(doccontroller.update)
 
 module.exports = router;
 
