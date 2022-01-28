@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const promisify = require('promisify');
 const errorset = require('./../utils/error');
+const appointmentModel = require('./../models/appointment');
 
 const tokengen = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -161,5 +162,20 @@ exports.update = Model => async (req, res, next) => {
     }
 }
 
+////////////////////////////////
+exports.getclientsAppointments = async (req,res,next,doc) => {
+    try{
+        console.log(doc);
+        
+        const appointment = await appointmentModel.find(doc);
+        res.status(200).json({
+            status: 'sucess',
+            results:appointment.length,
+            appointment
+        })
+    }catch(err){
+        next(new errorset(401,err.message));
+    }
+}
 
 

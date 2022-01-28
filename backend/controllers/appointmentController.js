@@ -1,5 +1,7 @@
-const appointmentModel = require('./../models/appointment');
 const errorset = require('./../utils/error');
+const factoryhandler = require('./handlerFactory');
+const appointmentModel = require('./../models/appointment');
+
 
 exports.addappointment = async (req, res, next) => {
     try {
@@ -16,11 +18,18 @@ exports.addappointment = async (req, res, next) => {
 
 exports.getappointment = async (req, res, next) => {
     try {
+        console.log("reached");
         if(req.body.did){
-            this.getdocAppointments(req,res,next);
+            const doc = {
+                'doctor':req.body.did
+            }
+            factoryhandler.getclientsAppointments(req,res,next,doc);
             return;
         }else if(req.body.pid){
-            this.getpatientAppointments(req,res,next);
+            const doc = {
+                'patient':req.body.pid
+            }
+            factoryhandler.getclientsAppointments(req,res,next,doc);
             return;
         }
         const appointment = await appointmentModel.find().select('-__v').populate({
@@ -38,36 +47,3 @@ exports.getappointment = async (req, res, next) => {
     }
 }
 
-exports.getdocAppointments = async (req,res,next) => {
-    try{
-        const id = req.body.did;
-        const doc = {
-            doctor:id
-        }
-        const appointment = await appointmentModel.find(doc);
-        res.status(200).json({
-            status: 'sucess',
-            results:appointment.length,
-            appointment
-        })
-    }catch(err){
-        next(new errorset(401,err.message));
-    }
-}
-
-exports.getpatientAppointments = async (req,res,next) => {
-    try{
-        const id = req.body.pid;
-        const doc = {
-            patient:id
-        }
-        const appointment = await appointmentModel.find(doc);
-        res.status(200).json({
-            status: 'sucess',
-            results:appointment.length,
-            appointment
-        })
-    }catch(err){
-        next(new errorset(401,err.message));
-    }
-}

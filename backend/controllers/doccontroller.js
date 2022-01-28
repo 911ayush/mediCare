@@ -1,6 +1,6 @@
-const docmodel = require('./../models/doctorsmodel');
 const errorset = require('./../utils/error');
 const factoryhandler = require('./handlerFactory');
+const docmodel = require('./../models/doctorsmodel');
 
 exports.getdoctors = factoryhandler.getclients(docmodel);
 
