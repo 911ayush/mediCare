@@ -23,11 +23,6 @@ const appointmentSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     }
-    // ,
-    // appointmentTime:{
-    //     type:Date,
-    //     required:[true,'appointment time is required']
-    // }
 },{
     toObject:{virtuals: true},
     toJSON: {virtuals: true}

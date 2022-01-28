@@ -51,7 +51,7 @@ exports.auth = (Model, d) => async (req, res, next) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-exports.signupclient = Model => async (req, res) => {
+exports.signupclient = Model => async (req, res, next) => {
     try {
         const patient = await Model.create(req.body);
         const token = tokengen(patient._id);
@@ -143,6 +143,9 @@ exports.postclient = Model => async (req, res, next) => {
 exports.update = Model => async (req, res, next) => {
     try {
         console.log("reached");
+        if(req.body.password){
+            next(new errorset(401, 'cannot update password'));
+        }
         let id;
         if (req.body.did) {
             id = req.body.did;
@@ -162,7 +165,7 @@ exports.update = Model => async (req, res, next) => {
     }
 }
 
-////////////////////////////////
+///////////////////////////////
 exports.getclientsAppointments = async (req,res,next,doc) => {
     try{
         console.log(doc);

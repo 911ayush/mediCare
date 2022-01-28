@@ -15,7 +15,9 @@ router
     .route('/login')
     .post(authcontroller.logindoc);
 
-router.use(authcontroller.dauth);
+//router.use(authcontroller.dauth);
+
+router.route('/nearby/:distance/center/:latlng/unit/:unit').get(doccontroller.nearby);
 router.use('/appointments', appointmentRouter);
 
 // router

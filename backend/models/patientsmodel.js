@@ -39,6 +39,15 @@ const patientSchema = new mongoose.Schema({
         min: [100000, 'enter valid pin code'],
         max: [999999, 'enter valid pin code']
     },
+    patientAddress:{
+        //GEOJSON
+        type:{
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+        },
+        coordinates: [Number],
+    },
     phoneNo: {
         type: String,
         trim: true,
@@ -71,7 +80,8 @@ patientSchema.virtual('appointments',{
     localField: '_id'
 });
 
-patientSchema.pre('save', async function (next) {
+patientSchema.post('save', async function (next) {
+    console.log(this.password);
     if (!this.isModified('password')) {
         return next();
     }

@@ -52,9 +52,18 @@ const doctorSchema = new mongoose.Schema({
         enum: ['Male', 'Female', 'Other'],
         required: [true, 'Please tell us your gender']
     },
-    address: {
-        type: String,
-        required: [true, 'Please provide your address'],
+    hospitalAddress:{
+        //GEOJSON
+        type:{
+            type: String,
+            default: 'Point',
+            enum: ['Point']
+        },
+        coordinates: [Number],
+    },
+    address:{
+        type:String,
+        required:[true,'please give address']
     },
     specialization:{
         type: String,
