@@ -14,10 +14,23 @@ const appointmentSchema = new mongoose.Schema({
         ref:'Doctor',
         required:[true,'appointment must be in reference of doctor']
     },
+    patient:{
+        type: mongoose.Schema.ObjectId,
+        ref:'Patient',
+        required:[true,'appointment must be in reference of doctor']
+    },
     createdAt:{
         type:Date,
         default:Date.now
     }
+    // ,
+    // appointmentTime:{
+    //     type:Date,
+    //     required:[true,'appointment time is required']
+    // }
+},{
+    toObject:{virtuals: true},
+    toJSON: {virtuals: true}
 });
 
 const Appointment = mongoose.model('Appointment',appointmentSchema);

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const doctorSchema = new mongoose.Schema({
+const patientSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -16,7 +16,8 @@ const doctorSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'please provide password'],
-        minlength: [8, 'min length of password is 8']
+        minlength: [8, 'min length of password is 8'],
+        select:false
     },
     configPassword: {
         type: String,
@@ -25,10 +26,12 @@ const doctorSchema = new mongoose.Schema({
             validator: function (val) {
                 return this.password === val;
             }
-        }
+        },
+        select:false
     },
     passwordsetat: {
-        type: Date
+        type: Date,
+        select:false
     },
     pincode: {
         type: Number,
@@ -55,10 +58,6 @@ const doctorSchema = new mongoose.Schema({
     address: {
         type: String,
         required: [true, 'Please provide your address'],
-    },
-    specialization:{
-        type: String,
-        required:[true,'Please give specialization to be displayed']
     }
 }, 
 {
@@ -66,26 +65,25 @@ const doctorSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-doctorSchema.virtual('appointments',{
+patientSchema.virtual('appointments',{
     ref: 'Appointment',
-    foreignField: 'doctor',
+    foreignField: 'patient',
     localField: '_id'
 });
 
-doctorSchema.pre('save', async function (next) {
+patientSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         return next();
     }
     this.password = await bcrypt.hash(this.password, 12);
-    console.log(this.password);
     this.configPassword = null;
     const time = Date.now();
     this.passwordsetat = time - 1000;
-    console.log(`${time} ${this.passwordsetat}`);
     next();
 });
 
-doctorSchema.methods.checkpassword = async function (password, givenpassword) {
+
+patientSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
         return await bcrypt.compare(givenpassword, password);
     } catch (err) {
@@ -93,9 +91,10 @@ doctorSchema.methods.checkpassword = async function (password, givenpassword) {
     }
 }
 
-doctorSchema.methods.tokensetafterpasswordset = function (val) {
+patientSchema.methods.tokensetafterpasswordset = function (val) {
 
     let changedTimestamp;
+    
     if (this.passwordsetat) {
         changedTimestamp = parseInt(
             this.passwordsetat.getTime() / 1000,
@@ -105,5 +104,5 @@ doctorSchema.methods.tokensetafterpasswordset = function (val) {
     return changedTimestamp < val;
 }
 
-const Doctor = mongoose.model('Doctor', doctorSchema);
-module.exports = Doctor;
+const Patient = mongoose.model('Patient', patientSchema);
+module.exports = Patient;
