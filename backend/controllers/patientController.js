@@ -8,6 +8,7 @@ exports.getpatient = async (req, res,next) => {
         if(req.query.page && req.query.limit){
 
             doc.skip((req.query.page-1)*(req.query.limit*1)).limit(req.query.limit*1);
+            
         }
         
         const u = await doc;
