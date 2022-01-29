@@ -1,8 +1,8 @@
 const docmodel = require('./../models/doctorsmodel');
 const errorset = require('./../utils/error');
-
-exports.getdoctors = async (req, res,next) => {
-    try {
+const catchAsync = require('./../utils/catchAsync');
+exports.getdoctors = catchAsync( async (req, res,next) => {
+    
         const doc = docmodel.find(req.query).select('-__v -passwordsetat -password -configPassword');
         console.log(req.query);
         if(req.query.page && req.query.limit){
@@ -16,38 +16,31 @@ exports.getdoctors = async (req, res,next) => {
             doctors_length: u.length,
             data: u
         })
-    } catch (err) {
-        next( new errorset(401,'cannot find data'));
-    }
-}
+   
+});
 
-exports.getdoctorsbyid = async (req, res,next) => {
-    try {
+exports.getdoctorsbyid = catchAsync (async (req, res,next) => {
+   
         const doc = await docmodel.findById(req.params.id).select('-__v -passwordsetat -password -configPassword');
         res.status(200).json({
             status: "sucess",
             data: doc
         })
-    } catch (err) {
-        next( new errorset(401,'invalid id'));
-    }
+   
+});
 
-}
-
-exports.postdoctors = async (req, res, next) => {
-    try {
+exports.postdoctors =catchAsync( async (req, res, next) => {
+    
         const doc = await docmodel.create(req.body);
         res.status(200).json({
             status: "sucess",
             doc
         })
-    } catch (err) {
-        next( new errorset(401,err.message));
-    }
-}
+    
+});
 
-exports.update = async (req, res,next) => {
-    try {
+exports.update = catchAsync( async (req, res,next) => {
+   
         const doc = await docmodel.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
@@ -56,7 +49,5 @@ exports.update = async (req, res,next) => {
             status: "sucess",
             doc
         });
-    } catch (err) {
-        next( new errorset(401,err.message));
-    }
-}
+   
+});

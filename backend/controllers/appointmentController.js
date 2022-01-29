@@ -1,21 +1,18 @@
 const appointmentModel = require('./../models/appointment');
 const errorset = require('./../utils/error');
-
-exports.addappointment = async (req, res, next) => {
-    try {
+const catchAsync = require('./../utils/catchAsync');
+exports.addappointment = catchAsync( async (req, res, next) => {
+    
         const appointment = await appointmentModel.create(req.body);
         res.status(200).json({
             status: "sucess",
             appointment
         });
-    }
-    catch (err) {
-        next(new errorset(401, err.message));
-    }
-}
+    
+});
 
-exports.getappointment = async (req, res, next) => {
-    try {
+exports.getappointment = catchAsync( async (req, res, next) => {
+    
         if(req.body.did){
             this.getdocAppointments(req,res,next);
             return;
@@ -32,14 +29,11 @@ exports.getappointment = async (req, res, next) => {
             length:appointment.length,
             appointment
         });
-    }
-    catch (err) {
-        next(new errorset(401, err.message));
-    }
-}
+   
+});
 
-exports.getdocAppointments = async (req,res,next) => {
-    try{
+exports.getdocAppointments = catchAsync( async (req,res,next) => {
+   
         const id = req.body.did;
         const doc = {
             doctor:id
@@ -50,13 +44,11 @@ exports.getdocAppointments = async (req,res,next) => {
             results:appointment.length,
             appointment
         })
-    }catch(err){
-        next(new errorset(401,err.message));
-    }
-}
+    
+});
 
-exports.getpatientAppointments = async (req,res,next) => {
-    try{
+exports.getpatientAppointments = catchAsync( async (req,res,next) => {
+    
         const id = req.body.pid;
         const doc = {
             patient:id
@@ -67,7 +59,5 @@ exports.getpatientAppointments = async (req,res,next) => {
             results:appointment.length,
             appointment
         })
-    }catch(err){
-        next(new errorset(401,err.message));
-    }
-}
+   
+});

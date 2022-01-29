@@ -3,7 +3,7 @@ const docmodel = require('./../models/doctorsmodel');
 const patientmodel = require('./../models/patientsmodel');
 const errorset = require('./../utils/error.js');
 const promisify = require('promisify');
-
+const catchAsync = require('./../utils/catchAsync');
 const tokengen = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 }
