@@ -19,6 +19,8 @@ app.all('*',(req,res,next)=>{
     const err = new errorset(404,"invalid url 1");
     next(err);
 })
+
+//error handling middleware
 app.use((err,req,res,next)=>{
     res.status(404).json({
         status:"failed",

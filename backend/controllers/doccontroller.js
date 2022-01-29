@@ -1,6 +1,8 @@
 const docmodel = require('./../models/doctorsmodel');
 const errorset = require('./../utils/error');
 const catchAsync = require('./../utils/catchAsync');
+
+
 exports.getdoctors = catchAsync( async (req, res,next) => {
     
         const doc = docmodel.find(req.query).select('-__v -passwordsetat -password -configPassword');
@@ -11,6 +13,9 @@ exports.getdoctors = catchAsync( async (req, res,next) => {
         }
         
         const u = await doc;
+
+      
+
         res.status(200).json({
             status: "sucess",
             doctors_length: u.length,
@@ -22,6 +27,11 @@ exports.getdoctors = catchAsync( async (req, res,next) => {
 exports.getdoctorsbyid = catchAsync (async (req, res,next) => {
    
         const doc = await docmodel.findById(req.params.id).select('-__v -passwordsetat -password -configPassword');
+
+         if(!doc){
+            return next(new errorset(404,'invalid doc id '));
+        }
+
         res.status(200).json({
             status: "sucess",
             data: doc
@@ -45,6 +55,11 @@ exports.update = catchAsync( async (req, res,next) => {
             new: true,
             runValidators: true
         });
+
+        if(!doc){
+            return next(new errorset(404,'invalid doc id '));
+        }
+        
         res.status(200).json({
             status: "sucess",
             doc

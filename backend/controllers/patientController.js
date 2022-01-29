@@ -23,6 +23,11 @@ exports.getpatient = catchAsync (async (req, res,next) => {
 exports.getpatientbyid = catchAsync( async (req, res,next) => {
     
         const doc = await patientsmodel.findById(req.params.id).select('-__v -passwordsetat -password -configPassword');
+        
+        if(!doc){
+            return next(new errorset(404,'invalid doc id '));
+        }
+
         res.status(200).json({
             status: "sucess",
             data: doc
@@ -47,6 +52,12 @@ exports.update = catchAsync( async (req, res,next) => {
             new: true,
             runValidators: true
         });
+
+        if(!doc){
+            return next(new errorset(404,'invalid doc id '));
+        }
+
+        
         res.status(200).json({
             status: "sucess",
             doc
