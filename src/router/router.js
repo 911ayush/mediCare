@@ -17,7 +17,9 @@ import { PatientPage } from '../copmonents/patient/Pview/ppage';
 import { PatientProfile } from '../copmonents/patient/Pview/profile';
 import { PatientAppointment } from '../copmonents/patient/Pview/pappointment';
 import { PFindDoc } from '../copmonents/patient/Pview/finddoc';
-
+import { DoctorPage } from '../copmonents/doctor/Dvieww/dpage';
+import { DoctorProfile } from '../copmonents/doctor/Dvieww/profile';
+import { DoctorAppointment } from '../copmonents/doctor/Dvieww/dappointment';
 
 export const AppRouter = () => {
 
@@ -25,22 +27,33 @@ export const AppRouter = () => {
         <main>
             <Routes>
                 <Route exact path="/" element={<Firstpage />}></Route>
+
+
                 <Route path="patients" element={<Wauth who='Patient' />}>
                     <Route path="signup" element={<PatientSignIn />} />
                     <Route path="login" element={<PatientLogIn />} />
                 </Route>
+
+
                 <Route path="patient" element={<PatientPage />}>
                     <Route path="profile" element={<PatientProfile />} />
                     <Route path="appointments" element={<PatientAppointment />} />
                     <Route path="find-doctor" element={<PFindDoc />} />
                 </Route>
+
+
                 <Route path="doctors" element={<Wauth who='Doctor' />}>
                     <Route path="signup" element={<DoctorSignIn />} />
                     <Route path="login" element={<DoctorLogIn />} />
                 </Route>
-                <Route path="doctor" element={<Wauth who='Doctor' />}>
 
+
+                <Route path="doctor" element={<DoctorPage />}>
+                    <Route path="profile" element={<DoctorProfile />} />
+                    <Route path="appointments" element={<DoctorAppointment />} />
                 </Route>
+
+                
                 <Route path='*' element={<Notfound />}></Route>
             </Routes>
         </main>
