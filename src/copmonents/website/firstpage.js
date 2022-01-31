@@ -15,8 +15,8 @@ export const Firstpage = () => {
                             </Navbar.Text>
                         </Navbar.Collapse>
 
-                        <Nav.Link as={Link} to="/doctor/signup" >Sign Up</Nav.Link>
-                        <Nav.Link as={Link} to="/doctor/login" >Log In</Nav.Link>
+                        <Nav.Link as={Link} to="/doctors/signup" >Sign Up</Nav.Link>
+                        <Nav.Link as={Link} to="/doctors/login" >Log In</Nav.Link>
                     </Nav>
                     <Nav className="me-auto">
                         <Navbar.Collapse className="justify-content-end">
@@ -24,8 +24,8 @@ export const Firstpage = () => {
                                 Enter as:  <a>Patient</a>
                             </Navbar.Text>
                         </Navbar.Collapse>
-                        <Nav.Link as={Link} to="/patient/signup" >Sign Up</Nav.Link>
-                        <Nav.Link as={Link} to="/patient/login" >Log In</Nav.Link>
+                        <Nav.Link as={Link} to="/patients/signup" >Sign Up</Nav.Link>
+                        <Nav.Link as={Link} to="/patients/login" >Log In</Nav.Link>
 
                     </Nav>
                 </Container>

@@ -8,6 +8,7 @@ export const Wauth = (props) => {
         <>
         <Navbar bg="dark" variant="dark" className='mb-3 '>
                 <Container>
+                <Navbar.Brand >FindMyDoctor</Navbar.Brand>
                     <Nav className="me-auto">
                         <Navbar.Collapse className="justify-content-end">
                             <Navbar.Text>
@@ -16,6 +17,9 @@ export const Wauth = (props) => {
                         </Navbar.Collapse>
                         <Nav.Link as={Link} to="signup" >Sign Up</Nav.Link>
                         <Nav.Link as={Link} to="login" >Log In</Nav.Link>
+                    </Nav>
+                    <Nav className="justify-content-right">
+                        <Nav.Link as={Link} to="/" >BACK</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
