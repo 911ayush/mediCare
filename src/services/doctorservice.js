@@ -42,3 +42,24 @@ export const logInDoctor = (email, password) => {
     })
 }
 
+export const updateDoctor = async (props) => {
+    try {
+       //console.log(props);
+       const data = await api.patch('doctor',props);
+       //console.log(data);
+      //return;
+      return data;
+    } catch (err) {
+       // console.log(err.response);
+        return err.response;
+    }
+
+}
+
+export const updateuserdataLocalStorage = (props) => {
+    localStorage.removeItem('data');
+    console.log(props);
+    localStorage.setItem('data',JSON.stringify(props));   
+}
+
+

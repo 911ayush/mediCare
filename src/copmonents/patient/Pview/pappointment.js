@@ -6,7 +6,7 @@ import { findPAppointment } from '../../../services/patientservice';
 
 export const PatientAppointment = () => {
     const [Appointment, setAppointments] = useState([]);
-    const fetchAppointment = () => {
+    const fetchAppointment = () => { 
         findPAppointment().then(data => {
             localStorage.setItem('Appointments', JSON.stringify(data.data.appointment));
             setAppointments(data.data.appointment);
