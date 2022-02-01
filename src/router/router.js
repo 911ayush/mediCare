@@ -20,7 +20,7 @@ import { PFindDoc } from '../copmonents/patient/Pview/finddoc';
 import { DoctorPage } from '../copmonents/doctor/Dvieww/dpage';
 import { DoctorProfile } from '../copmonents/doctor/Dvieww/profile';
 import { DoctorAppointment } from '../copmonents/doctor/Dvieww/dappointment';
-
+import {Messenger} from '../copmonents/messenger/Messenger';
 export const AppRouter = () => {
 
     return (
@@ -39,6 +39,7 @@ export const AppRouter = () => {
                     <Route path="profile" element={<PatientProfile />} />
                     <Route path="appointments" element={<PatientAppointment />} />
                     <Route path="find-doctor" element={<PFindDoc />} />
+                    <Route path="messenger" element ={<Messenger />}></Route>
                 </Route>
 
 
@@ -51,6 +52,7 @@ export const AppRouter = () => {
                 <Route path="doctor" element={<DoctorPage />}>
                     <Route path="profile" element={<DoctorProfile />} />
                     <Route path="appointments" element={<DoctorAppointment />} />
+                    <Route path="messenger" element={<Messenger />}> </Route>
                 </Route>
 
                 

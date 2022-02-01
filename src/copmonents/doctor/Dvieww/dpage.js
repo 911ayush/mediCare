@@ -19,7 +19,7 @@ export const DoctorPage = () => {
 
                         <Nav.Link className="justify-content-right" as={Link} to="profile" > Doctor about  </Nav.Link>
                         <Nav.Link className="justify-content-right" as={Link} to="appointments" >Appointments</Nav.Link>
-                        
+                        <Nav.Link className="justify-content-right" as={Link} to="messenger" >Messenger</Nav.Link>
                     </Nav>
                     <Nav className="justify-content-right">
                         <Button variant="dark" onClick={logout} >BACK</Button>
