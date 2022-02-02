@@ -1,0 +1,54 @@
+import React, { useState, useEffect } from 'react'
+import { Navbar, Nav, Container, Card, Row, Col, Button } from 'react-bootstrap';
+import { Link, useNavigate, Outlet, useLocation, useParams } from "react-router-dom";
+import { fetchdoctinfo } from '../../../services/patientservice';
+import { PFindNearBy } from './findnearby';
+export const PDoc = () => {
+    const params = useParams();
+    const navigate = useNavigate();
+    const [id, setid] = useState(params.id);
+    const [docinfo, setdocinfo] = useState({});
+    const fetchdocinfo = async (id) => {
+        try {
+            const info = await fetchdoctinfo(id);
+            console.log('fired');
+            setdocinfo(info.data.data);
+
+        }catch(err){
+            console.log(err);
+        }
+    }
+
+    const dotalk = () => {
+        if(!docinfo){
+            return;
+        }
+        navigate(`/message/${docinfo.id}`);
+    }
+
+    useEffect(() => {
+        setid(params.id);
+        fetchdocinfo(id);
+    }, [id,params.id]);
+
+
+
+    return (
+        <>
+            <Container className='mb-5'>
+                <Card >
+                <Card.Img variant="top" src="../../../../public/logo192.png" />
+                    <Card.Body className="text-center">
+                        <Card.Title>{docinfo.name}</Card.Title>
+                        <Card.Subtitle className='mb-1'>Email: {docinfo.email}</Card.Subtitle>
+                        <Card.Subtitle className='mb-1'>Specialization: {docinfo.specialization}</Card.Subtitle>
+                        <Card.Subtitle className='mb-1'>Address: {docinfo.address}</Card.Subtitle>
+                        <Card.Subtitle className='mb-1'>Pin Code: {docinfo.pincode}</Card.Subtitle>
+                        <Card.Subtitle className='mb-1'>Phone No: {docinfo.phoneCode} {docinfo.phoneNo}</Card.Subtitle>
+                        <Button className='mb-1 mt-2' onClick={dotalk} variant="primary">Message</Button>
+                    </Card.Body>
+                </Card>
+            </Container>
+        </>
+    )
+}

@@ -36,6 +36,7 @@ export const logInDoctor = (email, password) => {
     api.post('doctor/login', { email, password }).then(data => {
         console.log(data.data.token);
         localStorage.setItem('token', data.data.token);
+        localStorage.setItem('id', data.data.doc.id);
         localStorage.setItem('data', JSON.stringify(data.data.doc));
     }).catch(err => {
         console.log(err.message);

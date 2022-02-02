@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, Container, Card,Row, Col } from 'react-bootstrap';
-import { Link ,useNavigate } from "react-router-dom";
+import { Link ,useNavigate,Outlet } from "react-router-dom";
 import { PFindNearBy } from './findnearby';
 
 export const PFindDoc = () => {
@@ -17,7 +17,7 @@ export const PFindDoc = () => {
     return (
         <>
             <Container>
-            <Row></Row>
+            <Row><Outlet /></Row>
             <Row>
                 <PFindNearBy />
             </Row>

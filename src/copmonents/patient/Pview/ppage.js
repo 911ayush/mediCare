@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, Container, Button,Row, Col } from 'react-bootstrap';
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Gmessaging } from '../../message/messagin';
 import { PFindNearBy } from './findnearby';
 
 
@@ -31,7 +32,7 @@ export const PatientPage = () => {
                 <Row>
                     <Col></Col>
                     <Col xs={6}><Outlet /></Col>
-                    <Col>3 of 3</Col>
+                    <Col></Col>
                 </Row>
             </Container>
 

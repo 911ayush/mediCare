@@ -31,7 +31,9 @@ export const logInPatient = async (props) => {
     try {
         const data = await api.post('patient/login', props)
         localStorage.setItem('token', data.data.token);
+        localStorage.setItem('id', data.data.doc.id);
         localStorage.setItem('data', JSON.stringify(data.data.doc));
+
         return data;
     } catch (err) {
         return err;
@@ -81,7 +83,7 @@ export const updatePatient = async (props) => {
       //return;
       return data;
     } catch (err) {
-       // console.log(err.response);
+        console.log(err.response);
         return err.response;
     }
 
@@ -91,4 +93,47 @@ export const updateuserdataLocalStorage = (props) => {
     localStorage.removeItem('data');
     console.log(props);
     localStorage.setItem('data',JSON.stringify(props));   
+}
+
+export const fetchdoctinfo = async (props) => {
+       try{
+           const docinfo = await api.get(`doctor/${props}`);
+           return docinfo;
+       }catch(err){
+           console.log(err.response);
+           return err.response;
+       }
+}
+
+export const fetchConveId = async (props) => {
+   // console.log(props);
+    try{
+        const convId = await api.post(`messenger/${props.id1}/${props.id}`);
+        console.log(convId);
+        return convId;
+    }catch(err){
+       // console.log(err.response);
+        return err;
+    }
+}
+
+export const sendmessage = async (props) => {
+   // console.log(props);
+    try{
+        const message = await api.post(`messenger/message/${props.convId}`,props.mess);
+        return message;
+    }catch(err){
+        //console.log(err.response);
+        return err;
+    }
+}
+
+export const getmessage = async (props) => {
+    try{
+        const messages = await api.get(`messenger/message/${props}`);
+        return messages;
+    }catch(err){
+       // console.log(err.response);
+        return err;
+    }
 }

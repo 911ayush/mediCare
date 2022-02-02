@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Nav, Form, Container, Card, Accordion, Button, Modal } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Container, Card, Accordion, Button, Modal } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import { updatePatient, updateuserdataLocalStorage } from '../../../services/patientservice';
-
+//import EditIcon from '@material-ui/icons/Edit';
 export const PatientProfile = () => {
 
     const navigate = useNavigate();
@@ -102,8 +102,8 @@ export const PatientProfile = () => {
 
                                             <Form.Control type="text" value={longitude} onChange={e => setlongitude(e.target.value)} placeholder="longitude" />
                                         </Form.Group>
-                                        <Button type="submit" className='mt-2' >Save Location</Button>
-                                        <Button variant="success" typpe="button" className='mt-2 mb-2' onClick={getLocation}>Get Location</Button>
+                                        <Button type="submit" className='m-2' >Save Location</Button>
+                                        <Button variant="success" typpe="button" className='m-2 mb-2' onClick={getLocation}>Get Location</Button>
                                     </Form>
 
 

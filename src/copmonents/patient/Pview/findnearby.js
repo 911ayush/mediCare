@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Nav, Container, Card, CardGroup, Row, Col, Form, Button, Accordion, Show } from 'react-bootstrap';
-import { Link, useNavigate } from "react-router-dom";
-import { findnearByDoc, findPAppointment } from '../../../services/patientservice';
-import { DoctorSignIn } from '../../doctor/signIn';
+import { Container, Card, CardGroup, Row, Form, Button, Accordion} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import { findnearByDoc } from '../../../services/patientservice';
+import { Gmessaging } from '../../message/messagin';
 
 const conditionalrender = (props) => {
     if (props.length)
@@ -17,9 +17,15 @@ export const PFindNearBy = () => {
     const [distance, setdistance] = useState('');
     let show = true;
     const [doctor, setdoc] = useState([]);
+
+    const checkdoc = (id) => {
+        console.log(id);
+        navigate(id);
+    }
+
     const finddoc = () => {
         if (!latitude || !longitude || !distance) {
-            console.log('please provide lat and longitude');
+            alert('please provide latitude, longitude and distance');
             return;
         }
         //  findnearByDoc({latitude,longitude,distance});
@@ -61,15 +67,13 @@ export const PFindNearBy = () => {
     return (
         <>
             <Container>
-                <Row></Row>
-                <Row>
                 <Form.Group className="mb-3" controlId="formBasicdistance">
                     <Form.Label>Add the Distance in which you want to find Doctor in meter </Form.Label>
                     <Form.Control type="text" value={distance} onChange={e => setdistance(e.target.value)} placeholder="distance" />
                 </Form.Group>
 
                 <Accordion defaultActiveKey="0">
-                    <Accordion.Item eventKey="0">
+                    <Accordion.Item eventKey="1">
                         <Accordion.Header>Find Doctor From Current Geo Location</Accordion.Header>
                         <Accordion.Body>
                             <Form >
@@ -103,11 +107,11 @@ export const PFindNearBy = () => {
                             </Card.Body>
                         </Card>
                     </CardGroup>
-                    <Accordion.Item eventKey="1" show='false'>
+                    <Accordion.Item eventKey="2" >
                         {conditionalrender(doctor)}
                         {
 
-                            doctor.map(el => (<Accordion.Body>
+                            doctor.map(el => (<Accordion.Body onClick={()=>{checkdoc(el.id)}}>
                                 <Card style={{ width: "100%" }}>
                                     <Card.Body>
                                         <Card.Title className="mb-2" >{el.name}</Card.Title>
@@ -125,7 +129,6 @@ export const PFindNearBy = () => {
 
                     </Accordion.Item>
                 </Accordion>
-                </Row>
             </Container>
         </>
     )
