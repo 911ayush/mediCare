@@ -75,6 +75,8 @@ const doctorSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
+doctorSchema.index({hospitalAddress: '2dsphere'});
+
 doctorSchema.virtual('appointments',{
     ref: 'Appointment',
     foreignField: 'doctor',

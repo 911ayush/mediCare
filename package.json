@@ -4,16 +4,20 @@
   "description": "it provide single point solution to patients and users",
   "main": "server.js",
   "scripts": {
-    "test": "nodemon backend/server.js"
+    "test": "nodemon backend/server.js",
+    "socket": "nodemon backend/socket/socket.js"
+
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.8",
-    "promisify": "0.0.3"
+    "promisify": "0.0.3",
+    "socket.io": "^4.4.1"
   }
 }

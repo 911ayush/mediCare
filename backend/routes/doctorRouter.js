@@ -11,6 +11,7 @@ const router = express.Router();
 router
     .route('/signup')
     .post(authcontroller.signupdoc);
+    
 router
     .route('/login')
     .post(authcontroller.logindoc);

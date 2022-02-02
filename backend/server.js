@@ -12,7 +12,7 @@ mongoose.connect(process.env.DATABASE, {
    // console.log(con.connections);
    console.log("DB connection stablish")
 }).catch(err => {
-    console.log(err.message);
+    console.log(`error: ${err.message}`);
 });
 app.listen(8000, () => {
     console.log("server listening at 8000");

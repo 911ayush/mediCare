@@ -80,9 +80,10 @@ patientSchema.virtual('appointments',{
     localField: '_id'
 });
 
-patientSchema.post('save', async function (next) {
-    console.log(this.password);
+patientSchema.pre('save', async function (next) {
+    console.log("hassing passwords");
     if (!this.isModified('password')) {
+        console.log("here too");
         return next();
     }
     this.password = await bcrypt.hash(this.password, 12);
@@ -95,8 +96,10 @@ patientSchema.post('save', async function (next) {
 
 patientSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
-        return await bcrypt.compare(givenpassword, password);
+        console.log("doing");
+        return await bcrypt.compare(givenpassword,password);
     } catch (err) {
+        console.log(err.message);
         return err;
     }
 }

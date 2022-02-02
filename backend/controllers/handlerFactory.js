@@ -51,7 +51,7 @@ exports.auth = (Model, d) => async (req, res, next) => {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-exports.signupclient = Model => async (req, res, next) => {
+exports.signupclient = Model => async (req, res) => {
     try {
         const patient = await Model.create(req.body);
         const token = tokengen(patient._id);
@@ -73,9 +73,13 @@ exports.loginclient = Model => async (req, res, next) => {
     try {
         const email = req.body.email;
         const doc = await Model.findOne({ email }).select('+password');
+        console.log("i am here")
+        console.log(doc.password, req.body.password);
         const tp = await doc.checkpassword(doc.password, req.body.password);
+        console.log("could not reachh here")
         console.log(tp);
         if (!doc || !tp) {
+            console.log("not her");
             next(new errorset(401, 'invalid password'));
         }
         const token = tokengen(doc._id);
@@ -86,7 +90,6 @@ exports.loginclient = Model => async (req, res, next) => {
         })
     } catch (err) {
         next(new errorset(401, err.message));
-
     }
 }
 
