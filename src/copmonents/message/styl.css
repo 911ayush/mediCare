@@ -1,6 +1,45 @@
+.message-con{
+    margin: 4px;
+    
+}
+.message{
+    color: rgb(41, 28, 28);
+    border: 1px solid rgb(123, 181, 214);
+    border-radius: 20px;
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    max-width: 70%;
+    display: block;
+}
+.me .message{
+    background-color: rgb(219, 219, 218);
+    margin-left: auto;
+}
 .me{
     text-align: right;
+    
+}
+.other .message{
+    background-color: rgb(30, 230, 230);
 }
 .other{
     text-align: left;
+    
+    align-self: flex-start;
+}
+.timestamp{
+    align-self: flex-end;
+    font-size: 10px;
+    color: rgb(172, 164, 164);
+}
+
+.hf{
+    background-color: rgb(250, 248, 248);
+    height: 75vh;
+    overflow-y: auto;
+}
+
+.wf{
+    display: flex;
 }

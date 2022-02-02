@@ -1,13 +1,13 @@
 import React, { Component, useState, useEffect, useCallback } from 'react'
 import { Navbar, Nav, Container, Card, Button, CardGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { findPAppointment } from '../../../services/patientservice';
+import { findDAppointment } from '../../../services/doctorservice';
 
 
-export const PatientAppointment = () => {
+export const DoctorAppointment = () => {
     const [Appointment, setAppointments] = useState([]);
     const fetchAppointment = () => { 
-        findPAppointment().then(data => {
+        findDAppointment().then(data => {
             localStorage.setItem('Appointments', JSON.stringify(data.data.appointment));
             setAppointments(data.data.appointment);
         }).catch(err => {

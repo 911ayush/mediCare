@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, Container, Button,Row, Col } from 'react-bootstrap';
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Gmessaging } from '../../message/messagin';
-import { PFindNearBy } from './findnearby';
 
 
-export const PatientPage = () => {
+export const DoctorPage = () => {
     const navigate = useNavigate();
     const logout = () => {
         localStorage.clear();
@@ -19,9 +17,8 @@ export const PatientPage = () => {
                     <Nav className="justify-content-right">
 
 
-                        <Nav.Link className="justify-content-right" as={Link} to="profile" >Me😀 </Nav.Link>
+                        <Nav.Link className="justify-content-right" as={Link} to="profile" > Doctor about  </Nav.Link>
                         <Nav.Link className="justify-content-right" as={Link} to="appointments" >Appointments</Nav.Link>
-                        <Nav.Link className="justify-content-right" as={Link} to="find-doctor" >Find Doctor</Nav.Link>
                         <Nav.Link className="justify-content-right" as={Link} to="messenger" >Messenger</Nav.Link>
                     </Nav>
                     <Nav className="justify-content-right">
@@ -33,7 +30,7 @@ export const PatientPage = () => {
                 <Row>
                     <Col></Col>
                     <Col xs={6}><Outlet /></Col>
-                    <Col></Col>
+                    <Col>3 of 3</Col>
                 </Row>
             </Container>
 

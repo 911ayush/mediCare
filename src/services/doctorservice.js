@@ -1,5 +1,7 @@
 import axios from 'axios'
-
+import { apperror } from './error'
+import React, { useState } from 'react'
+import { useLocation } from 'react-router'
 const api = axios.create({
     baseURL: 'http://localhost:8000/api/v1/'
 })
@@ -41,5 +43,40 @@ export const logInDoctor = (email, password) => {
     }).catch(err => {
         console.log(err.message);
     })
+}
+
+export const updateDoctor = async (props) => {
+    try {
+       //console.log(props);
+       const data = await api.patch('doctor',props);
+       //console.log(data);
+      //return;
+      return data;
+    } catch (err) {
+       // console.log(err.response);
+        return err.response;
+    }
+
+}
+
+export const updateuserdataLocalStorage = (props) => {
+    localStorage.removeItem('data');
+    console.log(props);
+    localStorage.setItem('data',JSON.stringify(props));   
+}
+
+
+export const findDAppointment = async () => {
+    try {
+        if (localStorage.getItem('token') === null) {
+            return new apperror(400, 'token not found');
+        }
+        let appointments = await api.get('doctor/appointments');
+        
+        return appointments;
+    } catch (err) {
+        console.log(err);
+    }
+
 }
 
