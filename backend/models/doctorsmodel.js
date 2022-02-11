@@ -25,10 +25,14 @@ const doctorSchema = new mongoose.Schema({
             validator: function (val) {
                 return this.password === val;
             }
-        }
+        },
+        select:false
     },
     passwordsetat: {
         type: Date
+    },
+    profilePic:{
+        type:Buffer
     },
     pincode: {
         type: Number,

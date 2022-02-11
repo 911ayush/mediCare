@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const promisify = require('promisify');
 const errorset = require('./../utils/error');
 const appointmentModel = require('./../models/appointment');
+const docmodel = require('./../models/doctorsmodel');
+const patientmodel = require('./../models/patientsmodel');
 
 const tokengen = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -23,9 +25,20 @@ exports.auth = (Model, d) => async (req, res, next) => {
 
         // 2) Verification token
         decode = await jwt.verify(token, process.env.JWT_SECRET);
-
         // 3) check if user still exist
-        const user = await Model.findById(decode.id).select('+passwordsetat');
+        let user;
+        if(Model!=='g'){
+            user = await Model.findById(decode.id).select('+passwordsetat');
+        }
+        else{
+            this.d = 1;
+            user = await docmodel.findById(decode.id).select('+passwordsetat');
+            if(!user){
+                this.d = 0;
+                user = await patientmodel.findById(decode.id).select('+passwordsetat');
+            }
+        }
+        console.log("doing");
         if (!user) {
             next(new errorset(400, 'Please login again3'));
         }
@@ -35,12 +48,12 @@ exports.auth = (Model, d) => async (req, res, next) => {
             next(new errorset(400, 'Please login again4'));
         }
         //setting ids.
+        
         if (d === 1) {
             req.body.did = decode.id;
         } else {
             req.body.pid = decode.id;
         }
-
     }
     catch (err) {
         next(new errorset(400, 'Please login again5'));
@@ -172,7 +185,6 @@ exports.update = Model => async (req, res, next) => {
 exports.getclientsAppointments = async (req,res,next,doc) => {
     try{
         console.log(doc);
-        
         const appointment = await appointmentModel.find(doc);
         res.status(200).json({
             status: 'sucess',
@@ -183,5 +195,4 @@ exports.getclientsAppointments = async (req,res,next,doc) => {
         next(new errorset(401,err.message));
     }
 }
-
 

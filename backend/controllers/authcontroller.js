@@ -13,6 +13,7 @@ exports.dauth = factoryhandler.auth(docmodel,1);
 
 exports.pauth = factoryhandler.auth(patientmodel,0);
 
+exports.gauth = factoryhandler.auth('g',2);
 
 //AUTH OF PATIENTS
 

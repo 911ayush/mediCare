@@ -49,9 +49,16 @@ exports.addConversation = async (req, res, next) => {
 
 exports.getMyConversations = async (req, res, next) => {
     try {
-        const conversationId = await conversationModel.find({
-            messenger: { $in: [req.params.userid] }
-        })
+        let conversationId;
+        if(req.body.did){
+            conversationId = await conversationModel.find({
+                messenger: { $in: [req.body.did] }
+            })
+        }else{
+            conversationId = await conversationModel.find({
+                messenger: { $in: [req.body.pid] }
+            })
+        }
         res.status(200).json({
             status: "sucess",
             results: conversationId.length,
@@ -67,17 +74,30 @@ exports.getMyConversations = async (req, res, next) => {
 
 exports.addmessage = async (req, res, next) => {
     try {
+       let messagedoc;
+       if(req.file){
+        messagedoc = {
+            message: req.body.message,
+            sender: req.body.sender,
+            pic: req.file.buffer,
+            conversationid: req.params.conversationid
+        }
+       }else{
         messagedoc = {
             message: req.body.message,
             sender: req.body.sender,
             conversationid: req.params.conversationid
         }
+       }
+       console.log(messagedoc);
+       console.log(req.file);
         const message = await messageModel.create(messagedoc);
         res.status(200).json({
             status:"success",
-            message
+            messagedoc
         })
     } catch (err) {
+        console.log(err);
         res.status(400).json({
             status: "failed",
             error: err

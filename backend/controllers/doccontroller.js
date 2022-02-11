@@ -33,6 +33,25 @@ exports.nearby = async (req,res,next) => {
     }
 }
 
+
+
+exports.uploadProfilePic = async (req,res,next) => {
+    try{
+        const doctor = await docmodel.findById(req.body.did);
+        doctor.profilePic = req.file.buffer;
+        await doctor.save();
+        res.status(200).json({
+            status:"success",
+            doctor
+        })
+    }catch(err){
+        res.status(500).json({
+            status:"failed",
+            error:err
+        })
+    }
+}
+
 // exports.nearby = async (req,res,next) => {
 //     try{
 //         const { distance, latlng, unit} = req.params;

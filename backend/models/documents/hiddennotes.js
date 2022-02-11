@@ -1,19 +1,13 @@
 const mongoose = require('mongoose');
 
-const messageSchema = new mongoose.Schema({
-    message:{
+const hiddenNotesSchema = new mongoose.Schema({
+    hiddenNote:{
         type:String,
         required:true
     },
-    sender:{
-        type:mongoose.Schema.ObjectId,
-        required:true
-    },
-    pic:{
-        type:Buffer
-    },
     conversationid:{
         type:mongoose.Schema.ObjectId,
+        ref:'Conversation',
         required:true
     }
 },{ timestamps:true,
@@ -21,6 +15,6 @@ const messageSchema = new mongoose.Schema({
     toJSON: {virtuals: true}
 })
 
-const Message = mongoose.model('message',messageSchema);
+const HiddenNotes = mongoose.model('HiddenNotes',hiddenNotesSchema);
 
-module.exports = Message;
+module.exports = HiddenNotes;

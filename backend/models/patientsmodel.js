@@ -48,6 +48,9 @@ const patientSchema = new mongoose.Schema({
         },
         coordinates: [Number],
     },
+    profilePic:{
+        type:Buffer
+    },
     phoneNo: {
         type: String,
         trim: true,
@@ -96,7 +99,6 @@ patientSchema.pre('save', async function (next) {
 
 patientSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
-        console.log("doing");
         return await bcrypt.compare(givenpassword,password);
     } catch (err) {
         console.log(err.message);

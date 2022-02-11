@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
 
     socket.on("adduser",(userid)=>{
         addUser(userid,socket.id);
+        console.log("connected");
     })
 
     socket.on("send message",(data)=>{
