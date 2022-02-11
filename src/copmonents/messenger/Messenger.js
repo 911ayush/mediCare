@@ -1,45 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Topbar } from './../topbar/Topbar';
 import { Conversations } from './../conversations/Conversations';
 import { Message } from './../message/Message';
-
+import { Navbar, Nav, Container, NavLink, Col, Row } from "react-bootstrap";
+import { Link, Outlet } from "react-router-dom";
+import { getmyconversations } from '../../services/messaging';
 
 export const Messenger = () => {
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        // const message = {
-        //     sender: user._id,
-        //     text: newMessage,
-        //     conversationId: currentChat._id,
-        // };
-    }
+    const [id, setid] = useState(localStorage.getItem('id'));
+    const [conversations, setconversations] = useState([]);
+
+    useEffect(async () => {
+        try {
+            const res = await getmyconversations();
+            console.log(res);
+            setconversations(res.data.conversationId);
+        } catch (err) {
+            console.log(err);
+        }
+    }, [id])
+
     return (
         <>
-            <Topbar />
-            <div className='messenger' >
-                <div className='chatmenu'> menu
-                    <div>
-                        <Conversations />
-                    </div>
-                </div>
-                <div className='chatbox'> box
-                    <div>
-                        Message
-                        Message
-                        Message
-                    </div>
-                    <div className="chatBoxBottom">
-                        <textarea
-                            className="chatMessageInput"
-                            placeholder="write something..."
+            <Navbar bg="dark" variant="dark">
+                <Container>
+                    <Navbar.Brand>Your Messages</Navbar.Brand>
+                </Container>
+            </Navbar>
+            <Container>
+                {conversations.map(el => (
+                    <Container>
+                        <Nav.Link as={Link} to={el.id} >{el.id}</Nav.Link>
+                    </Container>
+                ))}
 
-                        ></textarea>
-                        <button className="chatSubmitButton" >
-                            Send
-                        </button>
-                    </div>
-                </div>
-            </div>
+            </Container>
         </>
     )
 }

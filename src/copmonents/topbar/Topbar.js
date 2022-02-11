@@ -8,10 +8,7 @@ export const Topbar = () => {
     <Navbar bg="dark" variant="dark">
       <Container>
         <Navbar.Brand>Connect Here</Navbar.Brand>
-        <Nav>
-          <Nav.Link as={Link} to="/videocall">Do Video Call</Nav.Link>
-        </Nav>
-
+        
       </Container>
     </Navbar>
   )

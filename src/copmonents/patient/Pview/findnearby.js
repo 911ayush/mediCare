@@ -3,6 +3,7 @@ import { Container, Card, CardGroup, Row, Form, Button, Accordion} from 'react-b
 import { useNavigate } from "react-router-dom";
 import { findnearByDoc } from '../../../services/patientservice';
 import { Gmessaging } from '../../message/messagin';
+import { getimg } from '../../../services/genralservice';
 
 const conditionalrender = (props) => {
     if (props.length)
@@ -61,9 +62,16 @@ export const PFindNearBy = () => {
     }
 
     useEffect(() => {
-
-    }, []);
-
+        console.log(doctor);
+        doctor.map(e => (
+            e.profilePic ? document.getElementById(e.id).src = getimg(e.profilePic) : console.log("no pic found")
+        
+        )
+            
+            );
+            console.log(doctor);
+    },[doctor]);
+    
     return (
         <>
             <Container>
@@ -114,6 +122,7 @@ export const PFindNearBy = () => {
                             doctor.map(el => (<Accordion.Body onClick={()=>{checkdoc(el.id)}}>
                                 <Card style={{ width: "100%" }}>
                                     <Card.Body>
+                                    <Card.Img variant="top" id={el.id} src={el.profilePic}/>
                                         <Card.Title className="mb-2" >{el.name}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">Address:{el.address}</Card.Subtitle>
                                         <Card.Text className='m=0'>

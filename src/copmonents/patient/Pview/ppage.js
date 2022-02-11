@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Navbar, Nav, Container, Button,Row, Col } from 'react-bootstrap';
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { Gmessaging } from '../../message/messagin';
+import { Videocall } from '../../video/video';
 import { PFindNearBy } from './findnearby';
 
 
@@ -31,9 +32,10 @@ export const PatientPage = () => {
             </Navbar>
             <Container className='mt-3 mb-3'>
                 <Row>
-                    <Col></Col>
-                    <Col xs={6}><Outlet /></Col>
-                    <Col></Col>
+                <Videocall />
+                </Row>
+                <Row>
+                    <Outlet />
                 </Row>
             </Container>
 

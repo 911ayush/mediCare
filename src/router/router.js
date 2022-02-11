@@ -17,7 +17,8 @@ import { PatientPage } from '../copmonents/patient/Pview/ppage';
 import { PatientProfile } from '../copmonents/patient/Pview/profile';
 import { PatientAppointment } from '../copmonents/patient/Pview/pappointment';
 import { PFindDoc } from '../copmonents/patient/Pview/finddoc';
-
+import { Appointment } from '../copmonents/patient/appointment';
+import { Document } from '../copmonents/general/document';
 import { PDoc } from '../copmonents/patient/Pview/Pdoc';
 import { Gmessaging } from '../copmonents/message/messagin';
 
@@ -26,7 +27,10 @@ import { Gmessaging } from '../copmonents/message/messagin';
 import { DoctorPage } from '../copmonents/doctor/Dvieww/dpage';
 import { DoctorProfile } from '../copmonents/doctor/Dvieww/profile';
 import { DoctorAppointment } from '../copmonents/doctor/Dvieww/dappointment';
-import {Messenger} from './../copmonents/messenger/Messenger';
+import { Messenger } from './../copmonents/messenger/Messenger';
+import { Videocall } from '../copmonents/video/video';
+import { UploadDocument } from '../copmonents/general/uploadDocument';
+
 
 export const AppRouter = () => {
 
@@ -41,32 +45,47 @@ export const AppRouter = () => {
                     <Route path="login" element={<PatientLogIn />} />
                 </Route>
 
-
-                <Route path="patient" element={<PatientPage />}>
-                    <Route path="profile" element={<PatientProfile />} />
-                    <Route path="appointments" element={<PatientAppointment />} />
-
-                    <Route path="find-doctor" element={<PFindDoc />} >
-                        <Route path=":id" element={<PDoc />} />
-                    </Route>
-                    <Route path="messenger" element ={<Messenger />} ></Route>
-                </Route>
-
-
                 <Route path="doctors" element={<Wauth who='Doctor' />}>
                     <Route path="signup" element={<DoctorSignIn />} />
                     <Route path="login" element={<DoctorLogIn />} />
                 </Route>
 
+                <Route path="patient" element={<PatientPage />}>
+                    <Route path="profile" element={<PatientProfile />} />
+                    <Route path="appointments" element={<PatientAppointment />} >
+                        <Route path=":appointmentid" element={<Appointment />} >
+                            <Route path="document" element={<Document all="false"/>} />
+                            <Route path="alldocument" element={<Document all="true"/>} />
+                            <Route path="upload-document" element={<UploadDocument />} />
+                        </Route>
+                    </Route>
+
+                    <Route path="find-doctor" element={<PFindDoc />} >
+                        <Route path=":id" element={<PDoc />} />
+                    </Route>
+
+                    <Route path="messenger" element={<Messenger />} >
+
+                    </Route>
+                    <Route path="messenger/:id" element={<Gmessaging />} >
+                        <Route path="videocall" element={<Videocall />} />
+                    </Route>
+                </Route>
+
+
+
 
                 <Route path="doctor" element={<DoctorPage />}>
                     <Route path="profile" element={<DoctorProfile />} />
                     <Route path="appointments" element={<DoctorAppointment />} />
-                    <Route path="messenger" element={<Messenger />} />
+                    <Route path="messenger" element={<Messenger />}>
+                        <Route path=":id" element={<Gmessaging />} />
+                    </Route>
                 </Route>
-                <Route path="message/:id" element={<Gmessaging />}>
+                <Route path="messenger/:id" element={<Gmessaging />} >
+                    <Route path="videocall" element={<Videocall />} />
+                </Route>
 
-                </Route>
 
                 <Route path='*' element={<Notfound />}></Route>
             </Routes>

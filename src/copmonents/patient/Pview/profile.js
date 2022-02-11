@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Container, Card, Accordion, Button, Modal } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
+import { arrayBufferToBase64 } from '../../../services/genralservice';
 import { updatePatient, updateuserdataLocalStorage } from '../../../services/patientservice';
 //import EditIcon from '@material-ui/icons/Edit';
 export const PatientProfile = () => {
@@ -18,6 +19,7 @@ export const PatientProfile = () => {
     const [address, setaddress] = useState('');
     const [longitude, setlongitude] = useState('');
     const [latitude, setlatitude] = useState('');
+    const [profilePic, setprofilePic]= useState([]);
     const getLocation = () => {
         navigator.geolocation.getCurrentPosition((position) => {
             setlatitude(position.coords.latitude);
@@ -38,6 +40,11 @@ export const PatientProfile = () => {
         })
     }
 
+    useEffect(()=>{
+        console.log("df");
+        console.log(profilePic);
+    },[profilePic])
+
 
     useEffect(() => {
         if (localStorage.getItem('data') === null) {
@@ -47,7 +54,12 @@ export const PatientProfile = () => {
             setname(data.name);
             setemail(data.email);
             setaddress(data.address);
-            if(!(data.patientAddress.coordinates.length === 0 || data.patientAddress.coordinates[0] === null || data.patientAddress.coordinates[1] === null)){
+
+            var base64Flag = 'data:image/jpeg;base64,';
+            var imageStr = arrayBufferToBase64(data.profilePic.data);
+                setprofilePic(base64Flag + imageStr);
+            
+            if (!(data.patientAddress.coordinates.length === 0 || data.patientAddress.coordinates[0] === null || data.patientAddress.coordinates[1] === null)) {
                 setlongitude(data.patientAddress.coordinates[1]);
                 setlatitude(data.patientAddress.coordinates[0]);
             }
@@ -74,7 +86,9 @@ export const PatientProfile = () => {
             </Modal>
             <Container >
                 <Card style={{ width: "100%" }}>
+                <Card.Img variant="top" src={profilePic}/>
                     <Card.Body>
+                        
                         <Card.Title>
                             {name}
                         </Card.Title>

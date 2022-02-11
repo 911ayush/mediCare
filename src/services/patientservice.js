@@ -33,12 +33,11 @@ export const logInPatient = async (props) => {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('id', data.data.doc.id);
         localStorage.setItem('data', JSON.stringify(data.data.doc));
-
+        console.log(data);
         return data;
     } catch (err) {
         return err;
     }
-
 }
 
 export const getPatients = async () => {
@@ -118,13 +117,12 @@ export const fetchConveId = async (props) => {
 }
 
 export const sendmessage = async (props) => {
-   // console.log(props);
     try{
-        const message = await api.post(`messenger/message/${props.convId}`,props.mess);
+        const message = await api.post(`messenger/message/${props.convId}`,props.formdata,{});
         return message;
     }catch(err){
-        //console.log(err.response);
-        return err;
+        console.log(err.response);
+        return err.response;
     }
 }
 
@@ -135,5 +133,25 @@ export const getmessage = async (props) => {
     }catch(err){
        // console.log(err.response);
         return err;
+    }
+}
+
+export const postDocument = async (props) => {
+    try{
+        console.log(props);
+        const document = await api.post('document',props,{});
+        return document;
+    }catch(err){
+       // console.log(err.response);
+        return err.response;
+    }
+}
+
+export const getDocument = async () => {
+    try{
+        const document = await api.get('document');
+        return document;
+    }catch(err){
+        return err.response;
     }
 }

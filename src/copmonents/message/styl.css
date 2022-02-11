@@ -2,17 +2,16 @@
     margin: 4px;
     
 }
-.message{
+.message-box{
     color: rgb(41, 28, 28);
     border: 1px solid rgb(123, 181, 214);
     border-radius: 20px;
-    padding: 2px;
-    padding-left: 8px;
-    padding-right: 8px;
+    overflow-y: hidden;
+    overflow-x: hidden;
     max-width: 70%;
     display: block;
 }
-.me .message{
+.me .message-box{
     background-color: rgb(219, 219, 218);
     margin-left: auto;
 }
@@ -20,7 +19,7 @@
     text-align: right;
     
 }
-.other .message{
+.other .message-box{
     background-color: rgb(30, 230, 230);
 }
 .other{
@@ -42,4 +41,10 @@
 
 .wf{
     display: flex;
+}
+
+.message{
+    padding: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
