@@ -4,6 +4,7 @@ const patientRouter = require('./routes/patientRouter.js');
 const appointmentRouter = require('./routes/appointmentRouter.js');
 const messagingRouter = require('./routes/messageRouter.js');
 const documentRouter = require('./routes/documentRouter');
+const ambulanceRouter = require('./routes/ambulanceRouter');
 
 const errorset = require('./utils/error');
 const cors = require('cors');
@@ -18,6 +19,7 @@ app.use('/api/v1/patient',patientRouter);
 app.use('/api/v1/appointment',appointmentRouter);
 app.use('/api/v1/messenger',messagingRouter);
 app.use('/api/v1/document',documentRouter);
+app.use('/api/v1/ambulance',ambulanceRouter);
 app.all('*',(req,res,next)=>{
     // res.status(404).json({
     //     status:"failed",
