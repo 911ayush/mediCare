@@ -13,11 +13,11 @@ router
 
 router
     .route('/nearby/:distance/center/:latlng/unit/:unit')
-    .get(doccontroller.nearby);
+    .get(ambulanceController.nearby);
 
 router
     .route('/:id')
-    .get(doccontroller.getdoctorsbyid)
+    .get(ambulanceController.getambulancesbyid )
 
 module.exports = router;
 

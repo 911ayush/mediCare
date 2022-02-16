@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const ambulanceSchema = new mongoose.Schema({
+const AmbulanceSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -66,7 +66,7 @@ const ambulanceSchema = new mongoose.Schema({
 
 // ambulanceSchema.index({ambulanceAddress: '2dsphere'});
 
-ambulanceSchema.pre('save', async function (next) {
+AmbulanceSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         return next();
     }
@@ -79,7 +79,7 @@ ambulanceSchema.pre('save', async function (next) {
     next();
 });
 
-ambulanceSchema.methods.checkpassword = async function (password, givenpassword) {
+AmbulanceSchema.methods.checkpassword = async function (password, givenpassword) {
     try {
         return await bcrypt.compare(givenpassword, password);
     } catch (err) {
@@ -87,7 +87,7 @@ ambulanceSchema.methods.checkpassword = async function (password, givenpassword)
     }
 }
 
-ambulanceSchema.methods.tokensetafterpasswordset = function (val) {
+AmbulanceSchema.methods.tokensetafterpasswordset = function (val) {
 
     let changedTimestamp;
     if (this.passwordsetat) {
