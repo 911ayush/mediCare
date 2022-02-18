@@ -49,9 +49,9 @@ exports.auth = (Model, d) => async (req, res, next) => {
         }
         //setting ids.
         
-        if (d === 1) {
+        if (this.d === 1) {
             req.body.did = decode.id;
-        } else {
+        } else if(this.d === 0) {
             req.body.pid = decode.id;
         }
     }

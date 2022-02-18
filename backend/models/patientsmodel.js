@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const patientSchema = new mongoose.Schema({
+    as:{
+        type:String,
+        default:"patient"
+    },
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -82,6 +86,12 @@ patientSchema.virtual('appointments',{
     foreignField: 'patient',
     localField: '_id'
 });
+
+// patientSchema.virtual('firebaseToken',{
+//     ref: 'FirebaseToken',
+//     foreignField: 'patient',
+//     localField: '_id'
+// });
 
 patientSchema.pre('save', async function (next) {
     console.log("hassing passwords");

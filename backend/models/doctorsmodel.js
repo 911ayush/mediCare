@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const doctorSchema = new mongoose.Schema({
+    as:{
+        type:String,
+        default:"doctor"
+    },
     name: {
         type: String,
         required: [true, 'Please provide name'],
@@ -86,6 +90,12 @@ doctorSchema.virtual('appointments',{
     foreignField: 'doctor',
     localField: '_id'
 });
+
+// doctorSchema.virtual('firebaseToken',{
+//     ref: 'FirebaseToken',
+//     foreignField: 'doctor',
+//     localField: '_id'
+// });
 
 doctorSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {

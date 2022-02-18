@@ -3,10 +3,24 @@ const factoryhandler = require('./handlerFactory');
 const appointmentModel = require('./../models/appointment');
 const documentModel = require('./../models/documents/document');
 const hiddenNote = require('./../models/documents/hiddennotes');
+const { sendMessage } = require('./../firebase');
 
 exports.addappointment = async (req, res, next) => {
     try {
         const appointment = await appointmentModel.create(req.body);
+
+        var message = {
+            notification: {
+                title: 'New Appointment',
+                body: 'Please check your appointment',
+            },
+            data: { 
+                title: 'New Appointment',
+                body: appointment,
+            }
+        };
+
+        sendMessage(message,{"doctor":req.body.doctor});
         res.status(200).json({
             status: "sucess",
             appointment
@@ -131,8 +145,8 @@ exports.posthiddenNote = async (req, res, next) => {
 
 exports.gethiddenNote = async (req, res, next) => {
     try {
-        const conversationid = req.params.conversationid; 
-        const documents = await hiddenNote.find({conversationid});
+        const conversationid = req.params.conversationid;
+        const documents = await hiddenNote.find({ conversationid });
         // const documents = await hiddenNote.find({conversationid}).populate('conversationid');
         // console.log(documents.conversationid)
         res.status(200).json({

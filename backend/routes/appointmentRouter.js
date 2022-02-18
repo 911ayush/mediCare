@@ -21,7 +21,7 @@ const upload = multer({
 
 router.route('/')
     .get(appointmentController.getappointment)
-    .post(appointmentController.addappointment);
+    .post(authcontroller.pauth,appointmentController.addappointment);
 
 router.route('/:appointmentid/document')
     .get(authcontroller.dauth, appointmentController.getdocument)
