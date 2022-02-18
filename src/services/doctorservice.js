@@ -2,6 +2,8 @@ import axios from 'axios'
 import { apperror } from './error'
 import React, { useState } from 'react'
 import { useLocation } from 'react-router'
+import { sendfirebasetoken } from './genralservice'
+
 const api = axios.create({
     baseURL: 'http://localhost:8000/api/v1/'
 })
@@ -36,10 +38,13 @@ export const signUpDoctor = async (doc) => {
 
 export const logInDoctor = (email, password) => {
     api.post('doctor/login', { email, password }).then(data => {
-        console.log(data.data.token);
+        console.log("hii");
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('id', data.data.doc.id);
         localStorage.setItem('data', JSON.stringify(data.data.doc));
+        if(localStorage.getItem('firebase')){
+            sendfirebasetoken({"token":localStorage.getItem('firebase')});
+        }
     }).catch(err => {
         console.log(err.message);
     })

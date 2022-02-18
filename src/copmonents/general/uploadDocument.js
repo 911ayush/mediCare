@@ -22,7 +22,6 @@ export const UploadDocument = () => {
         } catch (err) {
             console.log(err);
         }
-
     }
 
     const adddocument = (e) => {

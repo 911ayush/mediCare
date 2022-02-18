@@ -3,7 +3,8 @@ import { Navbar, Nav, Container, Card, Row, Col, Button } from 'react-bootstrap'
 import { Link, useNavigate, Outlet, useLocation, useParams } from "react-router-dom";
 import { getimg } from '../../../services/genralservice';
 import { fetchdoctinfo } from '../../../services/patientservice';
-import { PFindNearBy } from './findnearby';
+import { PFindNearBy } from './findnearby'; 
+
 
 export const PDoc = () => {
     const params = useParams();
@@ -20,12 +21,16 @@ export const PDoc = () => {
             console.log(err);
         }
     }
-
+    
     const dotalk = () => {
         if (!docinfo) {
             return;
         }
         navigate(`/patient/messenger/${docinfo.id}`);
+    }
+
+    const makeappointment = () => {
+        navigate(`/patient/appointments/create-appointment/${docinfo.id}`);
     }
 
     useEffect(() => {
@@ -55,6 +60,7 @@ export const PDoc = () => {
                         <Card.Subtitle className='mb-1'>Pin Code: {docinfo.pincode}</Card.Subtitle>
                         <Card.Subtitle className='mb-1'>Phone No: {docinfo.phoneCode} {docinfo.phoneNo}</Card.Subtitle>
                         <Button className='mb-1 mt-2' onClick={dotalk} variant="primary">Message</Button>
+                        <Button className='mb-1 mt-2' onClick={makeappointment} variant="primary">Make Appointment</Button>
                     
                     </Card.Body>
                 </Card>

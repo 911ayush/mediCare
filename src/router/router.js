@@ -30,6 +30,7 @@ import { DoctorAppointment } from '../copmonents/doctor/Dvieww/dappointment';
 import { Messenger } from './../copmonents/messenger/Messenger';
 import { Videocall } from '../copmonents/video/video';
 import { UploadDocument } from '../copmonents/general/uploadDocument';
+import { PMakeappointment } from '../copmonents/patient/Pview/makeAppoinment';
 
 
 export const AppRouter = () => {
@@ -53,6 +54,7 @@ export const AppRouter = () => {
                 <Route path="patient" element={<PatientPage />}>
                     <Route path="profile" element={<PatientProfile />} />
                     <Route path="appointments" element={<PatientAppointment />} >
+                    <Route path="create-appointment/:doctorid" element={<PMakeappointment />} />
                         <Route path=":appointmentid" element={<Appointment />} >
                             <Route path="document" element={<Document all="false"/>} />
                             <Route path="alldocument" element={<Document all="true"/>} />

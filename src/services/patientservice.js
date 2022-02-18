@@ -2,6 +2,8 @@ import axios from 'axios'
 import { apperror } from './error'
 import React, { useState } from 'react'
 import { useLocation } from 'react-router'
+import { sendfirebasetoken } from './genralservice'
+
 const api = axios.create({
     baseURL: 'http://localhost:8000/api/v1/'
 })
@@ -33,6 +35,9 @@ export const logInPatient = async (props) => {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('id', data.data.doc.id);
         localStorage.setItem('data', JSON.stringify(data.data.doc));
+        if(localStorage.getItem('firebase')){
+            sendfirebasetoken({"token":localStorage.getItem('firebase')});
+        }
         console.log(data);
         return data;
     } catch (err) {
@@ -153,5 +158,15 @@ export const getDocument = async () => {
         return document;
     }catch(err){
         return err.response;
+    }
+}
+
+export const makeappointment = async (appointmentdoc) => {
+    try {
+        console.log(appointmentdoc);
+        const doc = await api.post('patient/appointments',appointmentdoc);
+        console.log(doc);
+    } catch (err) {
+        console.log(err.message);
     }
 }
