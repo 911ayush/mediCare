@@ -4,6 +4,7 @@ const errorset = require('./../utils/error');
 const appointmentModel = require('./../models/appointment');
 const docmodel = require('./../models/doctorsmodel');
 const patientmodel = require('./../models/patientsmodel');
+const ambulancemodel = require('./../models/ambulancemodel'); 
 
 const tokengen = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
@@ -36,8 +37,12 @@ exports.auth = (Model, d) => async (req, res, next) => {
             if(!user){
                 this.d = 0;
                 user = await patientmodel.findById(decode.id).select('+passwordsetat');
-            }
-        }
+                if(!user){
+                    this.d=3;
+                    user = await ambulancemodel.findById(decode.id).select('+passwordsetat');
+                }
+             }
+           }
         console.log("doing");
         if (!user) {
             next(new errorset(400, 'Please login again3'));
@@ -52,7 +57,10 @@ exports.auth = (Model, d) => async (req, res, next) => {
         if (this.d === 1) {
             req.body.did = decode.id;
         } else if(this.d === 0) {
+      
             req.body.pid = decode.id;
+        } else {
+            req.body.aid = decode.id;
         }
     }
     catch (err) {
