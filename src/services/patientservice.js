@@ -20,6 +20,21 @@ api.interceptors.request.use(
     }
 )
 
+const loginruntimef = (data) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('id', data.doc.id);
+    localStorage.setItem('data', JSON.stringify(data.doc));
+    console.log("semdfirebasetokem");
+    if (localStorage.getItem('firebase')) {
+        console.log("semdfirebasetokem")
+        sendfirebasetoken({ "token": localStorage.getItem('firebase') });
+    }
+}
+export const loginRutine = (data) => {
+    console.log(data);
+   loginruntimef(data);
+}
+
 export const signUpPatient = async (doc) => {
     try {
         let res = await api.post('patient/signup', doc);
@@ -32,16 +47,11 @@ export const signUpPatient = async (doc) => {
 export const logInPatient = async (props) => {
     try {
         const data = await api.post('patient/login', props)
-        localStorage.setItem('token', data.data.token);
-        localStorage.setItem('id', data.data.doc.id);
-        localStorage.setItem('data', JSON.stringify(data.data.doc));
-        if(localStorage.getItem('firebase')){
-            sendfirebasetoken({"token":localStorage.getItem('firebase')});
-        }
+        loginruntimef(data.data);
         console.log(data);
         return data;
     } catch (err) {
-        return err;
+        return err.response;
     }
 }
 
@@ -70,10 +80,10 @@ export const findPAppointment = async () => {
 
 export const findnearByDoc = async (props) => {
     try {
-       console.log(props);
-       const data = await api.get(`doctor/nearby/${props.distance}/center/${props.latitude},${props.longitude}/unit/mi`);
-      // console.log(data);
-       return data;
+        console.log(props);
+        const data = await api.get(`doctor/nearby/${props.distance}/center/${props.latitude},${props.longitude}/unit/mi`);
+        // console.log(data);
+        return data;
     } catch (err) {
         console.log(err);
     }
@@ -81,11 +91,11 @@ export const findnearByDoc = async (props) => {
 
 export const updatePatient = async (props) => {
     try {
-       //console.log(props);
-       const data = await api.patch('patient',props);
-       //console.log(data);
-      //return;
-      return data;
+        //console.log(props);
+        const data = await api.patch('patient', props);
+        //console.log(data);
+        //return;
+        return data;
     } catch (err) {
         console.log(err.response);
         return err.response;
@@ -96,67 +106,67 @@ export const updatePatient = async (props) => {
 export const updateuserdataLocalStorage = (props) => {
     localStorage.removeItem('data');
     console.log(props);
-    localStorage.setItem('data',JSON.stringify(props));   
+    localStorage.setItem('data', JSON.stringify(props));
 }
 
 export const fetchdoctinfo = async (props) => {
-       try{
-           const docinfo = await api.get(`doctor/${props}`);
-           return docinfo;
-       }catch(err){
-           console.log(err.response);
-           return err.response;
-       }
+    try {
+        const docinfo = await api.get(`doctor/${props}`);
+        return docinfo;
+    } catch (err) {
+        console.log(err.response);
+        return err.response;
+    }
 }
 
 export const fetchConveId = async (props) => {
-   // console.log(props);
-    try{
+    // console.log(props);
+    try {
         const convId = await api.post(`messenger/${props.id1}/${props.id}`);
         console.log(convId);
         return convId;
-    }catch(err){
-       // console.log(err.response);
+    } catch (err) {
+        // console.log(err.response);
         return err;
     }
 }
 
 export const sendmessage = async (props) => {
-    try{
-        const message = await api.post(`messenger/message/${props.convId}`,props.formdata,{});
+    try {
+        const message = await api.post(`messenger/message/${props.convId}`, props.formdata, {});
         return message;
-    }catch(err){
+    } catch (err) {
         console.log(err.response);
         return err.response;
     }
 }
 
 export const getmessage = async (props) => {
-    try{
+    try {
         const messages = await api.get(`messenger/message/${props}`);
         return messages;
-    }catch(err){
-       // console.log(err.response);
+    } catch (err) {
+        // console.log(err.response);
         return err;
     }
 }
 
 export const postDocument = async (props) => {
-    try{
+    try {
         console.log(props);
-        const document = await api.post('document',props,{});
+        const document = await api.post('document', props, {});
         return document;
-    }catch(err){
-       // console.log(err.response);
+    } catch (err) {
+        // console.log(err.response);
         return err.response;
     }
 }
 
 export const getDocument = async () => {
-    try{
+    try {
         const document = await api.get('document');
         return document;
-    }catch(err){
+    } catch (err) {
         return err.response;
     }
 }
@@ -164,8 +174,17 @@ export const getDocument = async () => {
 export const makeappointment = async (appointmentdoc) => {
     try {
         console.log(appointmentdoc);
-        const doc = await api.post('patient/appointments',appointmentdoc);
+        const doc = await api.post('patient/appointments', appointmentdoc);
         console.log(doc);
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+export const socialAuthFacebook = async (docinfo) => {
+    try {
+
+        const doc = await api.post('patient/social-auth-facebook', docinfo);
+        return doc;
     } catch (err) {
         console.log(err.message);
     }
