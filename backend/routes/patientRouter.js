@@ -35,6 +35,8 @@ router.use('/appointments',authcontroller.pauth, appointmentRouter);
 
 
 
+router.route('/social-auth-facebook').post(patientcontroller.loginWithFacebok);
+
 router
     .route('/:id')
     .get(patientcontroller.getpatientbyid)
@@ -46,6 +48,7 @@ router
     .get(patientcontroller.getpatient)
     .post(patientcontroller.postpatient)
     .patch(authcontroller.pauth,patientcontroller.update)
+
 
 module.exports = router;
 

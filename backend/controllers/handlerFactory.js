@@ -10,6 +10,9 @@ const tokengen = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN });
 }
 
+exports.getToken = (id) => {
+    return tokengen(id);
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +79,7 @@ exports.signupclient = Model => async (req, res) => {
     try {
         const patient = await Model.create(req.body);
         const token = tokengen(patient._id);
-        // patient.checkPass
+        console.log(patient);
         res.status(200).json({
             status: "sucess",
             token,

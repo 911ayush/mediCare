@@ -39,7 +39,7 @@ const patientSchema = new mongoose.Schema({
     },
     pincode: {
         type: Number,
-        required: [true, 'Please provide pin code'],
+        
         min: [100000, 'enter valid pin code'],
         max: [999999, 'enter valid pin code']
     },
@@ -59,21 +59,21 @@ const patientSchema = new mongoose.Schema({
         type: String,
         trim: true,
         unique: true,
-        required: [true, 'Please provide phone no']
+        
     },
     phoneCode: {
         type: String,
-        required: [true, 'Please provide code for phone'],
+        
         trim: true
     },
     gender: {
         type: String,
         enum: ['Male', 'Female', 'Other'],
-        required: [true, 'Please tell us your gender']
+        
     },
     address: {
         type: String,
-        required: [true, 'Please provide your address'],
+        
     }
 }, 
 {
