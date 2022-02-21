@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
+import { Form, Button, Container,Row } from 'react-bootstrap'
 import { useNavigate } from "react-router-dom";
 import { logInPatient, loginRutine, socialAuthFacebook } from '../../services/patientservice'
 
@@ -59,6 +59,7 @@ export const PatientLogIn = () => {
         <>
             <div style={mystyle}>
                 <Container fluid="xl" className='mb-3' >
+                    <Row>
                     <Form onSubmit={submit} >
                         <Form.Group className="mb-30" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
@@ -74,15 +75,22 @@ export const PatientLogIn = () => {
                             Submit
                         </Button>
                     </Form>
-                </Container>
-            </div>
-
-            <FacebookLogin
+                    </Row>
+                    <Row className='mt-4'>
+                    <FacebookLogin
                 appId="1027670411439380"
                 autoLoad={true}
                 fields="name,email"
                 onClick={componentClicked}
                 callback={responseFacebook} />
+                    </Row>
+
+                    
+                </Container>
+            </div>
+            
+            
+            
         </>
     )
 }

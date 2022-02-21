@@ -3,10 +3,10 @@ import { Form, Container, Card, Accordion, Button, Modal } from 'react-bootstrap
 import { useNavigate } from "react-router-dom";
 import { arrayBufferToBase64 } from '../../../services/genralservice';
 import { updatePatient, updateuserdataLocalStorage } from '../../../services/patientservice';
-//import EditIcon from '@material-ui/icons/Edit';
+
 export const PatientProfile = () => {
 
-    const navigate = useNavigate();
+     const navigate = useNavigate();
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -40,6 +40,10 @@ export const PatientProfile = () => {
         })
     }
 
+    const editInfo = () => {
+        navigate('edit')
+    }
+
     useEffect(()=>{
         console.log("df");
         console.log(profilePic);
@@ -54,10 +58,12 @@ export const PatientProfile = () => {
             setname(data.name);
             setemail(data.email);
             setaddress(data.address);
-
-            var base64Flag = 'data:image/jpeg;base64,';
-            var imageStr = arrayBufferToBase64(data.profilePic.data);
-                setprofilePic(base64Flag + imageStr);
+            if(data.profilePic&&data.profilePic.data){
+                var base64Flag = 'data:image/jpeg;base64,';
+                var imageStr = arrayBufferToBase64(data.profilePic.data);
+                    setprofilePic(base64Flag + imageStr);
+            }
+           
             
             if (!(data.patientAddress.coordinates.length === 0 || data.patientAddress.coordinates[0] === null || data.patientAddress.coordinates[1] === null)) {
                 setlongitude(data.patientAddress.coordinates[1]);
@@ -99,6 +105,9 @@ export const PatientProfile = () => {
                             {address}
                         </Card.Text>
                     </Card.Body>
+                </Card>
+                <Card>
+                <Button variant="info" type="button" className='m-2 mb-2' onClick={editInfo}>Edit Profile Details</Button>
                 </Card>
                 <Card>
                     <Card.Body>

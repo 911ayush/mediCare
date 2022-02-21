@@ -70,7 +70,6 @@ export const findPAppointment = async () => {
             return new apperror(400, 'token not found');
         }
         let appointments = await api.get('patient/appointments');
-        //props.setAppointments(appointments);
         return appointments;
     } catch (err) {
         console.log(err);
@@ -80,9 +79,7 @@ export const findPAppointment = async () => {
 
 export const findnearByDoc = async (props) => {
     try {
-        console.log(props);
         const data = await api.get(`doctor/nearby/${props.distance}/center/${props.latitude},${props.longitude}/unit/mi`);
-        // console.log(data);
         return data;
     } catch (err) {
         console.log(err);
@@ -93,7 +90,8 @@ export const updatePatient = async (props) => {
     try {
         //console.log(props);
         const data = await api.patch('patient', props);
-        //console.log(data);
+        console.log(data);
+        updateuserdataLocalStorage(data.data.doc);
         //return;
         return data;
     } catch (err) {
@@ -120,13 +118,11 @@ export const fetchdoctinfo = async (props) => {
 }
 
 export const fetchConveId = async (props) => {
-    // console.log(props);
     try {
         const convId = await api.post(`messenger/${props.id1}/${props.id}`);
         console.log(convId);
         return convId;
     } catch (err) {
-        // console.log(err.response);
         return err;
     }
 }
@@ -146,7 +142,6 @@ export const getmessage = async (props) => {
         const messages = await api.get(`messenger/message/${props}`);
         return messages;
     } catch (err) {
-        // console.log(err.response);
         return err;
     }
 }
@@ -157,7 +152,6 @@ export const postDocument = async (props) => {
         const document = await api.post('document', props, {});
         return document;
     } catch (err) {
-        // console.log(err.response);
         return err.response;
     }
 }
@@ -180,6 +174,7 @@ export const makeappointment = async (appointmentdoc) => {
         console.log(err.message);
     }
 }
+
 export const socialAuthFacebook = async (docinfo) => {
     try {
 

@@ -31,6 +31,8 @@ import { Messenger } from './../copmonents/messenger/Messenger';
 import { Videocall } from '../copmonents/video/video';
 import { UploadDocument } from '../copmonents/general/uploadDocument';
 import { PMakeappointment } from '../copmonents/patient/Pview/makeAppoinment';
+import { EditPProfile } from '../copmonents/patient/Pview/editProfile';
+import { VideocallPage } from '../copmonents/video/videocallPage';
 
 
 export const AppRouter = () => {
@@ -51,8 +53,10 @@ export const AppRouter = () => {
                     <Route path="login" element={<DoctorLogIn />} />
                 </Route>
 
+
                 <Route path="patient" element={<PatientPage />}>
-                    <Route path="profile" element={<PatientProfile />} />
+                    <Route exact path="profile" element={<PatientProfile />} />
+                    <Route path="profile/edit" element={<EditPProfile />} />
                     <Route path="appointments" element={<PatientAppointment />} >
                     <Route path="create-appointment/:doctorid" element={<PMakeappointment />} />
                         <Route path=":appointmentid" element={<Appointment />} >
@@ -70,12 +74,9 @@ export const AppRouter = () => {
 
                     </Route>
                     <Route path="messenger/:id" element={<Gmessaging />} >
-                        <Route path="videocall" element={<Videocall />} />
                     </Route>
+                    
                 </Route>
-
-
-
 
                 <Route path="doctor" element={<DoctorPage />}>
                     <Route path="profile" element={<DoctorProfile />} />
@@ -85,8 +86,8 @@ export const AppRouter = () => {
                     </Route>
                 </Route>
                 <Route path="messenger/:id" element={<Gmessaging />} >
-                    <Route path="videocall" element={<Videocall />} />
                 </Route>
+                <Route path="video-call/:id" element={<VideocallPage />} />
 
 
                 <Route path='*' element={<Notfound />}></Route>

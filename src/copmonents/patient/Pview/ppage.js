@@ -32,9 +32,6 @@ export const PatientPage = () => {
             </Navbar>
             <Container className='mt-3 mb-3'>
                 <Row>
-                <Videocall />
-                </Row>
-                <Row>
                     <Outlet />
                 </Row>
             </Container>

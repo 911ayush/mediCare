@@ -4,6 +4,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 
 
 export const DoctorPage = () => {
+    const [show,setShow] = useState(false);
     const navigate = useNavigate();
     const logout = () => {
         localStorage.clear();
@@ -19,7 +20,7 @@ export const DoctorPage = () => {
 
                         <Nav.Link className="justify-content-right" as={Link} to="profile" > Doctor about  </Nav.Link>
                         <Nav.Link className="justify-content-right" as={Link} to="appointments" >Appointments</Nav.Link>
-                        <Nav.Link className="justify-content-right" as={Link} to="messenger" >Messenger</Nav.Link>
+                        <Nav.Link show={show} className="justify-content-right" as={Link} to="messenger" >Messenger</Nav.Link>
                     </Nav>
                     <Nav className="justify-content-right">
                         <Button variant="dark" onClick={logout} >BACK</Button>

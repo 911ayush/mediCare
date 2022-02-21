@@ -12,6 +12,7 @@ import { arrayBufferToBase64 } from '../../services/genralservice';
 export const Gmessaging = () => {
 
     const params = useParams();
+    const navigate = useNavigate();
     const socket = useRef();
     const [id, setid] = useState(localStorage.getItem('id'));
     const [loading, setloading] = useState(false);
@@ -23,34 +24,6 @@ export const Gmessaging = () => {
     const [newimg, setnewimg] = useState(null);
     const scrollRef = useRef();
 
-    useEffect(() => { bsCustomFileInput.init() }, [])
-
-    useEffect(async () => {
-        try {
-            setloading(false);
-            const mess = await getmessage(convId);
-            setloading(true);
-            console.log(mess.data.messages);
-            setmess(mess.data.messages);
-        } catch (err) {
-            //alert("mesages cannot be found");
-        }
-    }, [convId])
-
-    useEffect(async () => {
-        settowhomw(params.id);
-        try {
-            setloading(false);
-            const convId = await fetchConveId({ id1: params.id, id: localStorage.getItem('id') });
-            setconvId(convId.data.conversationId.id);
-        } catch (err) {
-            // alert("user cannot be found");
-        }
-    }, [params.id]);
-
-    useEffect(() => {
-        console.log(message);
-    }, [message])
 
     const setimg = (e) => {
         setnewimg(e.target.files[0]);
@@ -106,6 +79,7 @@ export const Gmessaging = () => {
         setmessage(data);
     }
 
+
     const appendmess = (data) => {
         if (data.pic) {
             console.log(data.pic);
@@ -121,6 +95,47 @@ export const Gmessaging = () => {
 
     }
 
+    const doVideoCall = () => {
+        console.log(params);
+        navigate(`/video-call/${params.id}`);
+    }
+
+
+    useEffect(() => { 
+        bsCustomFileInput.init();
+        console.log("params",params);
+    }, [])
+
+    useEffect(async () => {
+        try {
+            setloading(false);
+            const mess = await getmessage(convId);
+            setloading(true);
+            console.log(mess.data.messages);
+            setmess(mess.data.messages);
+        } catch (err) {
+            //alert("mesages cannot be found");
+        }
+    }, [convId])
+
+    useEffect(async () => {
+        settowhomw(params.id);
+        try {
+            setloading(false);
+            const convId = await fetchConveId({ id1: params.id, id: localStorage.getItem('id') });
+            setconvId(convId.data.conversationId.id);
+        } catch (err) {
+            // alert("user cannot be found");
+        }
+    }, [params.id]);
+
+    useEffect(() => {
+        console.log(message);
+    }, [message])
+
+ 
+
+    
 
 
     useEffect(() => {
@@ -152,7 +167,7 @@ export const Gmessaging = () => {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand className="p-1">{towhomw}</Navbar.Brand>
                     <Nav>
-                        <Nav.Link as={Link} to="videocall">Do Video Call</Nav.Link>
+                        <Nav.Link  onClick={doVideoCall}>Do Video Call</Nav.Link>
                     </Nav>
                 </Navbar>
 

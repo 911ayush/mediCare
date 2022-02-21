@@ -1,11 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Container, Nav, Navbar, Dropdown, Col } from 'react-bootstrap';
-import { useNavigate, Link, Outlet } from "react-router-dom";
+import { useNavigate, Link, Outlet, useParams } from "react-router-dom";
 import { PDoc } from './Pview/Pdoc';
 
 export const Appointment = () => {
+    const params = useParams();
+    const [doctor,setDoctor] = useState({});
 
+    useEffect(()=>{
+        console.log(doctor.doctor);
+    },[doctor])
 
+    useEffect(()=>{
+        if(localStorage.getItem('Appointments')){
+             const id = params.appointmentid;
+             const a = JSON.parse(localStorage.getItem('Appointments'));
+             console.log(a)
+            a.map(e => {
+                if(e.id === id){
+                    setDoctor(e);
+                    
+                    return;
+                }
+            })
+        }
+    },[])
 
 
 
@@ -15,9 +34,9 @@ export const Appointment = () => {
                 <Row>
                 <Navbar bg="light" variant="light">
                     <Container>
-                        <Navbar.Brand >Doctor Name</Navbar.Brand>
+                        <Navbar.Brand >{doctor.doctorname}</Navbar.Brand>
                         <Nav className="me-auto">
-                            <Nav.Link as={Link} to="/messenger/jhjk" >Message</Nav.Link>
+                            <Nav.Link as={Link} to={"/messenger/"+doctor.doctor} >Message</Nav.Link>
                             <Dropdown>
                                 <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
                                     Documents

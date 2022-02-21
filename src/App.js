@@ -3,6 +3,7 @@ import { AppRouter } from './router/router';
 import { onMessageListener, getToken } from './firebase';
 import { useEffect, useState } from 'react';
 import { sendfirebasetoken } from './services/genralservice'
+import { Videocall } from './copmonents/video/video';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -28,7 +29,11 @@ function App() {
   // .catch((err) => console.log("failed: ", err));
 
   return (
+    <>
     <AppRouter />
+    <Videocall />
+    </>
+    
   );
 }
 
