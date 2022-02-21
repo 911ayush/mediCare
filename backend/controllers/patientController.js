@@ -22,6 +22,7 @@ const generateString = (length) => {
 
     return result;
 }
+
 exports.uploadProfilePic = async (req,res,next) => {
     try{
         console.log(req.body);
@@ -53,18 +54,14 @@ exports.loginWithFacebok = async (req,res,next) => {
                 doc = await patientsmodel.findOne({email});
 
                 if(doc){
-                    //console.log(generateString(10));
                     token  = factoryhandler.getToken(doc.id);
-                    console.log(token);
                 }else{
-                    // createUser();
                     const password = generateString(20);
                     req.body.password = password;
                     req.body.configPassword = password;
                     try {
                         doc = await patientsmodel.create(req.body);
                         token = factoryhandler.getToken(doc._id);
-                        //console.log(doc);
                         
                     } catch (err) {
                         res.status(401).json({

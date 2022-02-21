@@ -1,5 +1,7 @@
 const errorset = require('./../utils/error');
 const firebaseTokenModel = require('./../models/firebasetoken');
+
+
 exports.storeToken = async (req, res, next) => {
     try {
         let doc;

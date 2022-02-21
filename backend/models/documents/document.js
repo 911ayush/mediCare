@@ -14,7 +14,6 @@ const documentSchema = new mongoose.Schema({
     document: {
         type: Buffer,
         required: [true, 'please upload document']
-
     },
     patientid: {
         type: mongoose.Schema.ObjectId,
