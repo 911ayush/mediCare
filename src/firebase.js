@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 const app = firebase.initializeApp(firebaseConfig);
-const mess = firebase.messaging();
+export const mess = firebase.messaging();
 
 export const getToken = async () => {
     try {

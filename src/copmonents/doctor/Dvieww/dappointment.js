@@ -2,9 +2,11 @@ import React, { Component, useState, useEffect, useCallback } from 'react'
 import { Navbar, Nav, Container, Card, Button, CardGroup } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { findDAppointment } from '../../../services/doctorservice';
-
-
+import { mess } from './../../../firebase.js'
 export const DoctorAppointment = () => {
+    mess.onMessage((payload) => {
+        console.log("RecivedForgroung message in dappointments", payload);
+    })
     const [Appointment, setAppointments] = useState([]);
     const fetchAppointment = () => { 
         findDAppointment().then(data => {
@@ -19,6 +21,7 @@ export const DoctorAppointment = () => {
         setAppointments(JSON.parse(localStorage.getItem('Appointments')));
     }
     useEffect(() => {
+       
         if (localStorage.getItem('Appointments') === null) {
             console.log("No Avialable Appointments");
             fetchAppointment();
@@ -31,7 +34,7 @@ export const DoctorAppointment = () => {
     return (
         <>
             <Container className='p-0'>
-                <Button variant="secondary" type="button" className='mt-3 mb-3' onClick={fetchAppointment}>Refetch Appointments
+                {/* <Button variant="secondary" type="button" className='mt-3 mb-3' onClick={fetchAppointment}>Refetch Appointments
                  </Button>
                 {Appointment.map(el => (
                     <CardGroup className='p-0' controlId={el.id}>
@@ -45,7 +48,7 @@ export const DoctorAppointment = () => {
                     </CardGroup>
 
 
-                ))}
+                ))} */}
             </Container>
         </>
     )
