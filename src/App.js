@@ -6,6 +6,7 @@ import { sendfirebasetoken } from './services/genralservice'
 import { Videocall } from './copmonents/video/video';
 
 function App() {
+  alert("hello");
   const [show, setShow] = useState(false);
   useEffect(async () => {
     try {
@@ -21,6 +22,7 @@ function App() {
     }
 
   }, [])
+  
   // onMessageListener()
   // .then((payload) => {
   //   setShow(true);
