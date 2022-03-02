@@ -6,7 +6,7 @@
 // });
 const server = require('../server');
 const io = require("socket.io")(server);
-
+console.log(io);
 
 let users = [];
 const addUser = (userid,socketid) => {
