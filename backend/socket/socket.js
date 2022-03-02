@@ -7,7 +7,7 @@
 const server = require('../server');
 const io = require("socket.io")(server, {
     cors: {
-        origin: "https://pacific-bayou-88396.herokuapp.com",
+        origin: "https://medicare-ayusss.herokuapp.com/",
     },
 });
 console.log(io);
