@@ -5,7 +5,7 @@ import { useLocation } from 'react-router'
 import { sendfirebasetoken } from './genralservice'
 
 const api = axios.create({
-    baseURL: 'http://pacific-bayou-88396.herokuapp.com/api/v1'
+    baseURL: 'https://pacific-bayou-88396.herokuapp.com/api/v1'
 })
 
 
