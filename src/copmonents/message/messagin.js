@@ -143,7 +143,7 @@ export const Gmessaging = () => {
     }, [newarivalmess])
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("ws://pacific-bayou-88396.herokuapp.com/");
         socket.current.emit("adduser", id);
         socket.current.on(id, (data) => {
             setnewarivalmess(data.mess);

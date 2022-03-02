@@ -18,7 +18,7 @@ export const Videocall = () => {
     const [mypeerjsid, setmypeerjsid] = useState('');
     const [otherid, setotherid] = useState('');
     const [otherName,setothername] =useState('');
-    let peerinst = useRef(new Peer(id));
+    let peerinst = useRef(new Peer(id,{host: 'medicare-76456.web.app', secure: true}));
     let callinst = useRef(null);
     let peercon = useRef(null);
 
@@ -92,7 +92,9 @@ export const Videocall = () => {
     }, [id])
 
     const check = () => {
-
+        console.log(otherid);
+        console.log(id);
+        console.log(peerinst);
     }
 
     const videocall = () => {

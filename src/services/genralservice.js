@@ -2,7 +2,7 @@ import { alignPropType } from "react-bootstrap/esm/types";
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api/v1/'
+    baseURL: 'http://pacific-bayou-88396.herokuapp.com/api/v1'
 })
 
 api.interceptors.request.use(
