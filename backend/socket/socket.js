@@ -1,9 +1,13 @@
 
-const io = require("socket.io")(8900, {
-    cors: {
-        origin: "http://pacific-bayou-88396.herokuapp.com",
-    },
-});
+// const io = require("socket.io")(8900, {
+//     cors: {
+//         origin: "http://localhost:3000",
+//     },
+// });
+const app = require('./app');
+const io = require("socket.io")(app);
+
+
 let users = [];
 const addUser = (userid,socketid) => {
     !users.some((user) => user.userid === userid) &&
