@@ -4,8 +4,8 @@
 //         origin: "http://localhost:3000",
 //     },
 // });
-const app = require('./app');
-const io = require("socket.io")(app);
+const server = require('../server');
+const io = require("socket.io")(server);
 
 
 let users = [];
