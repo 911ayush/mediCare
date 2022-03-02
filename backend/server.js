@@ -17,7 +17,6 @@ mongoose.connect(process.env.DATABASE, {
     console.log(`error: ${err.message}`);
 });
 
-const server = require('../server');
 
 ///////////////
 
