@@ -86,6 +86,7 @@ exports.signupclient = Model => async (req, res) => {
             patient
         })
     } catch (err) {
+        console.log(err)
         res.status(401).json({
             status: "failed",
             err: err.message

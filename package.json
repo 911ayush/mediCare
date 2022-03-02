@@ -5,12 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "nodemon backend/server.js",
+    "start": "node backend/server.js",
     "socket": "nodemon backend/socket/socket.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
     "cookie": "^0.4.2",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",

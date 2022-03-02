@@ -14,6 +14,7 @@ mongoose.connect(process.env.DATABASE, {
 }).catch(err => {
     console.log(`error: ${err.message}`);
 });
-app.listen(8000, () => {
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
     console.log("server listening at 8000");
 })
